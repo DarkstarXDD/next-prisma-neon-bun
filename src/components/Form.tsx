@@ -7,12 +7,12 @@ export default function Form() {
     <Card>
       <Card.Header>
         <Card.Title>Register</Card.Title>
-        <Card.Description>Add new users to the database</Card.Description>
+        <Card.Description>Add a new user to the database</Card.Description>
       </Card.Header>
 
       <form className="grid gap-4" action={register}>
         <TextField
-          className="w-full max-w-64"
+          className="w-full min-w-0"
           variant="secondary"
           autoComplete="name"
           name="name"
@@ -22,7 +22,7 @@ export default function Form() {
         </TextField>
 
         <TextField
-          className="w-full max-w-64"
+          className="w-full min-w-0"
           autoComplete="email"
           variant="secondary"
           name="email"

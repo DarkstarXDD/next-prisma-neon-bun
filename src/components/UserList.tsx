@@ -6,7 +6,7 @@ import { prisma } from "@/db/client"
 export default async function UserList() {
   "use cache"
   cacheTag("users")
-  const users = await prisma.user.findMany()
+  const users = await prisma.user.findMany({ orderBy: { createdAt: "desc" } })
 
   return (
     <Card>
@@ -15,14 +15,14 @@ export default async function UserList() {
         <hr />
       </Card.Header>
 
-      <ul className="grid gap-4">
+      <ol className="grid max-h-100 gap-4 overflow-y-auto">
         {users.map((user) => (
-          <li className="grid" key={user.id}>
+          <li key={user.id}>
             <span>{user.name}</span>
-            <span className="text-muted text-sm">{user.email}</span>
+            <span className="text-muted block text-sm">{user.email}</span>
           </li>
         ))}
-      </ul>
+      </ol>
     </Card>
   )
 }
