@@ -1,8 +1,11 @@
+import { cacheTag } from "next/cache"
 import { Card } from "@heroui/react"
 
 import { prisma } from "@/db/client"
 
 export default async function UserList() {
+  "use cache"
+  cacheTag("users")
   const users = await prisma.user.findMany()
 
   return (

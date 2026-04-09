@@ -1,5 +1,6 @@
 "use server"
 
+import { updateTag } from "next/cache"
 import * as z from "zod"
 
 import { Prisma, prisma } from "@/db/client"
@@ -25,6 +26,7 @@ export async function register(formData: FormData) {
       data: { name: parsed.data.name, email: parsed.data.email },
     })
     console.log(user)
+    updateTag("users")
   } catch (e) {
     if (e instanceof Prisma.PrismaClientKnownRequestError) {
       console.log(e.code)
