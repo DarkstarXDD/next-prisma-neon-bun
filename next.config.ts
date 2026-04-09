@@ -4,9 +4,8 @@ const nextConfig: NextConfig = {
   logging: {
     fetches: { fullUrl: true },
   },
-
-  // typedRoutes: true,
-  // cacheComponents: true,
+  typedRoutes: true,
+  cacheComponents: true,
 }
 
 export default nextConfig
