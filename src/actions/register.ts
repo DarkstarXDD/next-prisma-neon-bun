@@ -5,6 +5,7 @@ import * as z from "zod"
 
 import { Prisma, prisma } from "@/db/client"
 
+// ------------------ Create User -----------------------
 const userSchema = z.object({
   name: z.string("Invalid name").min(1, "Name cannot be empty"),
   email: z.email("Invalid email"),
@@ -36,4 +37,32 @@ export async function register(formData: FormData) {
   }
 }
 
-// { success: false, message: "Server validation fails" }
+// ------------------ Delete User -----------------------
+const userDeleteSchema = z.object({
+  id: z.cuid("Invalid id format"),
+})
+
+export async function deleteUser(formData: FormData) {
+  const data = Object.fromEntries(formData)
+  const parsed = userDeleteSchema.safeParse(data)
+
+  if (!parsed.success) {
+    console.log("Server validation fails.")
+    console.log(z.flattenError(parsed.error).fieldErrors)
+    return
+  }
+
+  try {
+    const deletedUser = await prisma.user.delete({
+      where: { id: parsed.data.id },
+    })
+    console.log("Deleted user", deletedUser)
+    updateTag("users")
+  } catch (e) {
+    if (e instanceof Prisma.PrismaClientKnownRequestError) {
+      console.log(e.code)
+      console.log("User not found")
+      return
+    }
+  }
+}
