@@ -1,6 +1,7 @@
+import { Button, Card } from "@heroui/react"
 import { cacheTag } from "next/cache"
-import { Card } from "@heroui/react"
 
+import { deleteUser } from "@/actions/register"
 import { prisma } from "@/db/client"
 
 export default async function UserList() {
@@ -15,11 +16,20 @@ export default async function UserList() {
         <hr />
       </Card.Header>
 
-      <ol className="grid max-h-100 gap-4 overflow-y-auto">
+      <ol className="grid max-h-100 gap-8 overflow-y-auto">
         {users.map((user) => (
-          <li key={user.id}>
-            <span>{user.name}</span>
-            <span className="text-muted block text-sm">{user.email}</span>
+          <li className="grid grid-cols-[1fr_auto] items-center" key={user.id}>
+            <div>
+              <span>{user.name}</span>
+              <span className="text-muted block text-sm">{user.email}</span>
+            </div>
+
+            <form action={deleteUser}>
+              <input defaultValue={user.id} name="id" hidden />
+              <Button variant="danger" type="submit" size="sm">
+                Delete
+              </Button>
+            </form>
           </li>
         ))}
       </ol>
