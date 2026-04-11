@@ -1,2 +1,0 @@
-# Disable Bun from loading .env files so Next.js can handle that
-env = false
