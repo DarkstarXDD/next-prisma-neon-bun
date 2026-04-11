@@ -1,6 +1,6 @@
 import { TextField, Button, Input, Label, Card } from "@heroui/react"
 
-import { register } from "@/actions/register"
+import { createUser } from "@/actions/actions"
 
 export default function Form() {
   return (
@@ -10,7 +10,7 @@ export default function Form() {
         <Card.Description>Add a new user to the database</Card.Description>
       </Card.Header>
 
-      <form className="grid gap-4" action={register}>
+      <form className="grid gap-4" action={createUser}>
         <TextField
           className="w-full min-w-0"
           variant="secondary"
