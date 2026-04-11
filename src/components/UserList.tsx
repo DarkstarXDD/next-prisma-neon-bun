@@ -1,7 +1,7 @@
 import { Button, Card } from "@heroui/react"
 import { cacheTag } from "next/cache"
 
-import { deleteUser } from "@/actions/register"
+import { deleteUser } from "@/actions/actions"
 import { prisma } from "@/db/client"
 
 export default async function UserList() {

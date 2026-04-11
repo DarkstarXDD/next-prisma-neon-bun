@@ -6,15 +6,15 @@ import * as z from "zod"
 import { Prisma, prisma } from "@/db/client"
 
 // ------------------ Create User -----------------------
-const userSchema = z.object({
+const userCreateSchema = z.object({
   name: z.string("Invalid name").min(1, "Name cannot be empty"),
   email: z.email("Invalid email"),
 })
 
-export async function register(formData: FormData) {
+export async function createUser(formData: FormData) {
   const data = Object.fromEntries(formData)
 
-  const parsed = userSchema.safeParse(data)
+  const parsed = userCreateSchema.safeParse(data)
 
   if (!parsed.success) {
     console.log("Server validation fails.")
